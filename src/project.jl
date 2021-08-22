@@ -1,15 +1,5 @@
 
 
-#= TODO: remove
-function findfiles(dir::AbstractPath; exts = ("md", "ipynb"), includehidden = false)
-    it = filter(collect((relative(p, dir) for p in walkpath(dir)))) do p
-        (extension(p) in exts) && (includehidden || !startswith(filename(p), '.'))
-    end
-    return it
-end
-=#
-
-
 mutable struct Project
     sources::Dict{AbstractPath, XTree}
     outputs::Dict{AbstractPath, XTree}
