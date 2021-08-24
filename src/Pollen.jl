@@ -22,45 +22,58 @@ using JSON3
 using Revise
 
 
-include("xtree.jl")
-include("selectors.jl")
-include("catas.jl")
-include("folds.jl")
+# XTree
+include("xtree/xtree.jl")
+include("xtree/selectors.jl")
+include("xtree/catas.jl")
+include("xtree/folds.jl")
 
-#include("xexpr.jl")
+
+# Input and output formats
+include("formats/format.jl")
+include("formats/markdown.jl")
+include("formats/html.jl")
+include("formats/jupyter.jl")
+include("formats/json.jl")
+
+
+# utils
+include("rewriters/documenttree.jl")
+include("files.jl")
 include("reflectionutils.jl")
 include("references.jl")
-include("files.jl")
 
-include("formats.jl")
-include("markdown.jl")
-include("html.jl")
-include("jupyter.jl")
-#include("json.jl")
 
+# ## Project
 include("rewriters.jl")
 include("project.jl")
 include("builders.jl")
 
+
+# ## Rewriters
+include("rewriters/basic.jl")
+include("rewriters/inserter.jl")
+
+## for html
+include("rewriters/html/basic.jl")
+include("rewriters/html/assets.jl")
+include("rewriters/html/templater.jl")
+
+## for loading source documents
+include("rewriters/documentfolder.jl")
+
+## semantic transformations
+include("rewriters/referencer.jl")
+include("rewriters/coderunner.jl")
+include("rewriters/toc.jl")
+
+
+# ## Serving
 include("serve/events.jl")
 include("serve/server.jl")
 include("serve/servefiles.jl")
-
-include("rewriters/documentfolder.jl")
-include("rewriters/referencer.jl")
-include("rewriters/documenttree.jl")
-include("rewriters/basic.jl")
-include("rewriters/assets.jl")
-include("rewriters/templater.jl")
-include("rewriters/coderunner.jl")
-include("rewriters/inserter.jl")
-include("rewriters/toc.jl")
 include("rewriters/packagewatcher.jl")
 
-#=
-include("serve.jl")
-include("servelazy.jl")
-=#
 include("projects.jl")
 
 
@@ -74,7 +87,6 @@ export select,
     Project, build,
     SelectTag, SelectOr, XExpr, ChangeTag, htmlify, AddSlugID, AddTableOfContents, SelectAttrEq,
     Selector, parse, HTML, Markdown, resolveidentifier, serve,
-    # rewriters
     AddID, HTMLify, ChangeLinkExtension, FormatCode, AddTableOfContents, Referencer, DocumentFolder,
     documentationproject, Server, runserver, ServeFiles, ServeFilesLazy,
     PackageWatcher,

@@ -127,7 +127,7 @@ end
 function Base.convert(::Type{XTree}, node::Node, l::Link, attrs)
     return XNode(
         :a,
-        Dict(:href => l.destination, :title => l.title),
+        merge(attrs, Dict(:href => l.destination, :title => l.title)),
         childrenxtrees(node))
 end
 
@@ -135,6 +135,3 @@ function Base.convert(::Type{XTree}, node::Node, c::Heading, attrs)
     tag = Symbol("h$(c.level)")
     return XNode(tag, attrs, childrenxtrees(node))
 end
-
-
-# TODO: add conversion for Table Nodes

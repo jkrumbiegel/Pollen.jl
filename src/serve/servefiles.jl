@@ -57,11 +57,6 @@ function _lazyservecallback(req, ch, builddir)
         buildpath = joinpath(builddir, req.target[2:end])
         try mkpath(parent(buildpath)) catch end
         touch(buildpath)
-        #=
-        open(joinpath(builddir, req.target[2:end]), "w") do f
-            write(f, "Building...")
-        end
-        =#
         sourcepath = Path(req.target[2:end-5])  # cut off / and .html
         put!(ch, DocRequested(sourcepath))
         # Give time to build so file server doesn't instantly return a 404

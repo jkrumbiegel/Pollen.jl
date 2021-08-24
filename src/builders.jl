@@ -11,7 +11,6 @@ want to rebuild previously built files, use [`rebuild`](#).
 function build(project::Project, builder::Builder)
     return project
 
-
     # Build all documents
     dirtypaths = addfiles!(project, project.sources)
 

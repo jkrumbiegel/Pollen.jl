@@ -74,67 +74,8 @@ function createsources!(rewriters::Vector{<:Rewriter})
     end
     return merge(docs...)
 end
-#=
-
-function addfiles(
-        sources::Dict,
-        outputs::Dict,
-        rewriters,
-        newsources;
-        dirtypaths = Set())
-    sources = copy(sources)
-    outputs = copy(outputs)
-    dirtypaths = addfiles!(sources, outputs, rewriters, newsources; dirtypaths = dirtypaths)
-    return sources, outputs, dirtypaths
-end
 
 
-"""
-    addfiles(sources, outputs, rewriters, newsources) -> (sources', outputs', dirtypaths)
-    addfiles!(sources, outputs, rewriters, newsources) -> dirtypaths
-
-Updates `sources` and `outputs` based on new or updated `changedsources`
-using `rewriters`.
-"""
-function addfiles!(
-        sources::Dict,
-        outputs::Dict,
-        rewriters,
-        newsources::Dict;
-        dirtypaths = Set())
-
-    isempty(newsources) && return dirtypaths
-
-    # Process new/changed files on document-level
-    for (p, xtree) in newsources
-        sources[p] = xtree
-        for rewriter in rewriters
-            xtree = rewritedoc(rewriter, p, xtree)
-        end
-        outputs[p] = xtree
-        push!(dirtypaths, p)
-    end
-
-    # Apply project-level changes like updating tree elements,
-    # and creating new files.
-    newersources = Dict{AbstractPath, XNode}()
-    for rewriter in rewriters
-        new = createdocs(rewriter)
-        newersources = merge(newersources, new)
-    end
-
-    # Run recursively with new documents
-    return addfiles!(sources, outputs, rewriters, newersources; dirtypaths = dirtypaths)
-end
-
-
-function addfiles!(project::Project, newsources)
-    dirtypaths = addfiles!(project.sources, project.outputs, project.rewriters, newsources)
-    return dirtypaths
-end
-
-
-=#
 function reset!(project::Project)
     foreach(k -> delete!(project.sources, k), keys(project.sources))
     foreach(k -> delete!(project.outputs, k), keys(project.outputs))

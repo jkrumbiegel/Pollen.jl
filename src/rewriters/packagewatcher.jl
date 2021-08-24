@@ -8,14 +8,7 @@ Rebuild when a source file in one of `modules` changes.
 """
 struct PackageWatcher <: Rewriter
     modules
-    handler
 end
-
-# FIXME: remove old constructor and handler field
-PackageWatcher(modules) = PackageWatcher(modules, 1)
-
-# TODO: update to work with event-based serving
-
 
 function geteventsource(pkgwatcher::PackageWatcher, ch)
     watcher = LiveServer.SimpleWatcher(filename -> onsourcefilechanged(Path(filename), ch))

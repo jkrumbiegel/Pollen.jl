@@ -69,6 +69,11 @@ end
 
 matches(sel::SelectHasAttr, x::XNode) = haskey(attributes(x), sel.attr)
 
+struct SelectHasChild <: Selector
+    sel::Selector
+end
+
+matches(sel::SelectHasChild, x::XNode) = any(matches(sel.sel, ch) for ch in children(x))
 
 ## API
 

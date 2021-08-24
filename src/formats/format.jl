@@ -1,8 +1,17 @@
+"""
+    abstract type Format
+
+Abstract type for input and/or output formats for documents
+in Pollen.jl.
+
+## Interface
+
+- `parse(io, format)`: read source document from `io` into a `XTree`.
+"""
 abstract type Format end
 
 
 # input interface
-
 
 """
     parse(io, format)

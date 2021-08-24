@@ -64,7 +64,6 @@ function resolveidentifier(name, modules = ())
         for m in modules
             if isdefined(m, bindingsymbol)
                 return Reference(m, bindingsymbol)
-
             end
         end
         return nothing
